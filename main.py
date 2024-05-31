@@ -4,6 +4,7 @@ from personaggio import Personaggio
 from funzioni import blocco_sotto, sta_collidendo, get_collision_side
 from pterodattilo import Pterodattilo
 from coins import Moneta
+import time
 import random
 pygame.init()
 
@@ -24,7 +25,14 @@ lavaS = pygame.image.load("lavaS.jpg")
 roccia = pygame.image.load("roccia.jpg")
 rocciaS = pygame.image.load("rocciaS.jpg")
 character = pygame.image.load("info_character.png")
-
+albero1 = pygame.image.load("albero1.png")
+albero2 = pygame.image.load("alberi2.png")
+albero3 = pygame.image.load("alberi3.png")
+roccia1 = pygame.image.load("roccia1.png")
+roccia2 = pygame.image.load("roccia2.png")
+vulcano1 = pygame.image.load("vulcano1.png")
+vulcano2 = pygame.image.load("vulcano2.png")
+youwin = pygame.image.load("you win.jpg")
 
 dim_blocco_x, dim_blocco_y, dim_blocco = 100, 100, 100
 erba = pygame.transform.scale(erba, (dim_blocco_x, dim_blocco_y))
@@ -36,15 +44,26 @@ rocciaS = pygame.transform.scale(rocciaS, (dim_blocco_x, dim_blocco_y))
 paesaggio = pygame.transform.scale(paesaggio, (WIDTH, HEIGHT))
 montagna = pygame.transform.scale(montagna, (WIDTH, HEIGHT))
 vulcano = pygame.transform.scale(vulcano, (WIDTH, HEIGHT))
+albero1 = pygame.transform.scale(albero1, (dim_blocco_x, dim_blocco_y))
+albero2 = pygame.transform.scale(albero2, (dim_blocco_x, dim_blocco_y))
+albero3 = pygame.transform.scale(albero3, (dim_blocco_x, dim_blocco_y))
+roccia1 = pygame.transform.scale(roccia1, (dim_blocco_x, dim_blocco_y))
+roccia2 = pygame.transform.scale(roccia2, (dim_blocco_x, dim_blocco_y))
+vulcano1 = pygame.transform.scale(vulcano1, (dim_blocco_x, dim_blocco_y))
+vulcano2 = pygame.transform.scale(vulcano2, (dim_blocco_x, dim_blocco_y))
+youwin = pygame.transform.scale(youwin, (WIDTH, HEIGHT))
 
 
 texture = []
-texture.append(erba)
-texture.append(roccia)
-texture.append(lava)
-# texture.append(erbaS)
-# texture.append(rocciaS) 
-# texture.append(lavaS)
+texture.append(erba)#1
+texture.append(roccia)#2
+texture.append(lava)#3
+texture.append(albero1)#4
+texture.append(albero3)#5
+texture.append(roccia1)#6
+texture.append(roccia2)#7
+texture.append(vulcano1)#8
+texture.append(vulcano2)#9
 
 terreno = Terreno("mappa.txt", texture, dim_blocco)
 # terreno.lista = ottieni_lista_blocchi("mappa.txt")
@@ -52,10 +71,10 @@ character = Personaggio(0, HEIGHT - 200)
 FPS = 60
 clock = pygame.time.Clock()
 run = True
-conta = 0
+conta = 180
 
 ticks = pygame.time.get_ticks()
-conta_secondi = 0
+conta_secondi = 180
 
 WHITE = (200, 200, 200)
 NERO = (0, 0, 0)
@@ -74,7 +93,7 @@ h_salto = 200
 jump_speed = 0
 lista_pt = []
 lista_coins = []
-tempo = 0
+tempo = 150
 punteggio = 0
 rubbish = []
 
@@ -93,7 +112,7 @@ while run:
             tasto_lasciato = pygame.key.name(event.key)
         
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE: 
                 character.salta()
 
     character.aggiorna()        
@@ -118,11 +137,11 @@ while run:
 
     # if character.rect.y >= HEIGHT - character.rect.y:
     #     character.rect.y = HEIGHT - character.rect.y
-    #     character.velocita_y = 0
+    #     character.velocita_y = 0  
     #     a_terra = True
 
     if tempo != 0 and int(tempo) % 10 == 0 and int(tempo) == conta_secondi / 15:
-        p = Pterodattilo([VEL*-2, 0], pygame.Rect(WIDTH, random.randint(380, 400), 80, 100))
+        p = Pterodattilo([VEL*-2, 0], pygame.Rect(WIDTH, random.randint(390, 400), 80, 100))
         lista_pt.append(p)
 
     if tempo != 0 and int(tempo) % 25 == 0 and int(tempo) == conta_secondi / 15:
@@ -170,16 +189,29 @@ while run:
     screen.blit(sfondo, (WIDTH - conta, 0))
 
     # cambio sfondo
-    if tempo > 75 and tempo < 160:
+    if tempo > 75 and tempo < 132:
+        
         sfondo = montagna
         screen.blit(sfondo, (0 - conta, 0))
         screen.blit(sfondo, (WIDTH - conta, 0))
 
-    if tempo >= 160:
+    if tempo >= 132 and tempo <= 180:
+        
         sfondo = vulcano
         screen.blit(sfondo, (0 - conta, 0))
         screen.blit(sfondo, (WIDTH - conta, 0))
+    
+    if tempo > 180 and tempo < 200:
         
+        screen.blit(youwin, (0, 0))
+        pygame.display.update()
+        time.sleep(2)
+        #break
+
+    if tempo == 200:
+
+        run = False
+
     # stampa oggetti
     scritta = font.render(f"Score: {tempo + punteggio}", True, NERO)
     rettangolo_scritta = scritta.get_rect()
