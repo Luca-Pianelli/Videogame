@@ -5,7 +5,7 @@ class Pterodattilo:
 
         self.rect = rect
         self.vel = vel
-        self.image = pygame.image.load("pterodattilo.jpg")
+        self.image = pygame.image.load("pterodattilo.png")
         self.image = pygame.transform.scale(self.image, (self.rect.width, self.rect.height))
 
     def move(self):

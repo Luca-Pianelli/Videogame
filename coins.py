@@ -6,7 +6,7 @@ class Moneta:
 
         self.vel = vel
         self.rect = rect
-        self.image = pygame.image.load("coins.jpg")
+        self.image = pygame.image.load("coins.png")
         self.image = pygame.transform.scale(self.image, (self.rect.width, self.rect.height))
 
     def move(self):

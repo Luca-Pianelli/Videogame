@@ -59,7 +59,7 @@ conta_secondi = 0
 
 WHITE = (200, 200, 200)
 NERO = (0, 0, 0)
-FORZA_SALTO = -10
+FORZA_SALTO = -10  
 
 font = pygame.font.SysFont("Showcard Gothic", 48)
 velocita_y = 0
@@ -94,9 +94,9 @@ while run:
         
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                character.jump()
+                character.salta()
 
-    character.update()        
+    character.aggiorna()        
     key_pressed = pygame.key.get_pressed()
     tmp_lista = sta_collidendo(character.rect, terreno.lista)
     
@@ -170,7 +170,7 @@ while run:
     screen.blit(sfondo, (WIDTH - conta, 0))
 
     # cambio sfondo
-    if tempo > 80 and tempo < 160:
+    if tempo > 75 and tempo < 160:
         sfondo = montagna
         screen.blit(sfondo, (0 - conta, 0))
         screen.blit(sfondo, (WIDTH - conta, 0))

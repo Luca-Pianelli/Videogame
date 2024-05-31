@@ -1,1 +1,2 @@
-pos_corrente += terreno.lista1[i][j][0][0]
+
+    clock.tick(FPS)
