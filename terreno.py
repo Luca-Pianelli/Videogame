@@ -9,10 +9,10 @@ class Terreno:
         self.testo = testo
         self.texture = texture
         self.dim = dim
-        self.lista1 = []
+        self.lista = []
         
         for _ in range(ALTEZZA_TESTO):
-            self.lista1.append([])
+            self.lista.append([])
         
         with open(self.testo, "r", encoding = "utf-8") as f:
             i = 0
@@ -22,9 +22,9 @@ class Terreno:
                 for num in riga:
                     num = int(num)
                     if num != 0:
-                        self.lista1[i].append([pygame.Rect(j * self.dim, i * self.dim, self.dim, self.dim), self.texture[num - 1]])
+                        self.lista[i].append([pygame.Rect(j * self.dim, i * self.dim, self.dim, self.dim), self.texture[num - 1]])
                     else:
-                        self.lista1[i].append([None, None])
+                        self.lista[i].append([None, None])
                     j += 1
                 i += 1
         f.close()
@@ -32,6 +32,6 @@ class Terreno:
     def draw_terreno(self, screen):
         for i in range(ALTEZZA_TESTO):
             for j in range(LUNGHEZZA_TESTO):
-                if self.lista1[i][j][0] != None:
+                if self.lista[i][j][0] != None:
                     # print(self.lista[i][j][0].x, self.lista[i][j][0].y, self.lista[i][j][-1])
-                    screen.blit(self.lista1[i][j][-1], (self.lista1[i][j][0].x, self.lista1[i][j][0].y))
+                    screen.blit(self.lista[i][j][-1], (self.lista[i][j][0].x, self.lista[i][j][0].y))

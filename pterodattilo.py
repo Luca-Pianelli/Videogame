@@ -1,12 +1,11 @@
 import pygame
 WIDTH, HEIGHT = 1200, 600
-class Moneta:
-    
+class Pterodattilo:
     def __init__(self, vel, rect):
 
-        self.vel = vel
         self.rect = rect
-        self.image = pygame.image.load("coins.jpg")
+        self.vel = vel
+        self.image = pygame.image.load("pterodattilo.jpg")
         self.image = pygame.transform.scale(self.image, (self.rect.width, self.rect.height))
 
     def move(self):
