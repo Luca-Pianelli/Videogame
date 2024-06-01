@@ -42,13 +42,13 @@ roccia = pygame.transform.scale(roccia, (dim_blocco_x, dim_blocco_y))
 paesaggio = pygame.transform.scale(paesaggio, (WIDTH, HEIGHT))
 montagna = pygame.transform.scale(montagna, (WIDTH, HEIGHT))
 vulcano = pygame.transform.scale(vulcano, (WIDTH, HEIGHT))
-albero1 = pygame.transform.scale(albero1, (dim_blocco, dim_blocco_y))
-albero2 = pygame.transform.scale(albero2, (dim_blocco, dim_blocco_y))
-albero3 = pygame.transform.scale(albero3, (dim_blocco, dim_blocco_y))
-roccia1 = pygame.transform.scale(roccia1, (dim_blocco, dim_blocco_y))
-roccia2 = pygame.transform.scale(roccia2, (dim_blocco, dim_blocco_y))
-vulcano1 = pygame.transform.scale(vulcano1, (dim_blocco, dim_blocco_y))
-vulcano2 = pygame.transform.scale(vulcano2, (dim_blocco, dim_blocco_y))
+albero1 = pygame.transform.scale(albero1, (dim_blocco, dim_blocco))
+albero2 = pygame.transform.scale(albero2, (dim_blocco, dim_blocco))
+albero3 = pygame.transform.scale(albero3, (dim_blocco, dim_blocco))
+roccia1 = pygame.transform.scale(roccia1, (dim_blocco, dim_blocco))
+roccia2 = pygame.transform.scale(roccia2, (dim_blocco, dim_blocco))
+vulcano1 = pygame.transform.scale(vulcano1, (dim_blocco, dim_blocco))
+vulcano2 = pygame.transform.scale(vulcano2, (dim_blocco, dim_blocco))
 youwin = pygame.transform.scale(youwin, (WIDTH, HEIGHT))
 youdied = pygame.transform.scale(youdied, (WIDTH, HEIGHT))
 sb = pygame.transform.scale(sb, (dim_blocco_x, dim_blocco_y))
@@ -90,6 +90,7 @@ h_salto = 200
 # character.falling = True
 # character.jump_speed = 0
 
+no_salto = False
 jump_speed = 0
 lista_pt = []
 lista_coins = []
@@ -115,7 +116,7 @@ while run:
             tasto_lasciato = pygame.key.name(event.key)
         
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE: 
+            if event.key == pygame.K_SPACE and no_salto == False: 
                 character.salta()
 
     character.aggiorna()        
@@ -253,8 +254,15 @@ while run:
         if not rallentato:
             coin.draw(screen)
 
+    no_salto = False
 
-
+    for i in range(len(terreno.lista)):
+        for j in range(len(terreno.lista[i])):
+            if terreno.lista[i][j][0] != None:
+                if character.rect.bottom == terreno.lista[i][j][0].top and character.rect.right > terreno.lista[i][j][0].left and character.rect.left < terreno.lista[i][j][0].right:
+                    if terreno.lista[i][j][1] == texture[6]:
+                        no_salto = True
+    
     # # collisioni
     # for i in range(len(terreno.lista)):
     #     for j in range(len(terreno.lista[i])):
